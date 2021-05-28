@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+<body>
+
+    <form action="/intervento/prenota" method="post">
+        <input type="hidden" id="id_officina" name="id_officina" value="{{officina}}">
+        <input type="hidden" id="id_intervento" name="id_intervento" value="{{intervento}}">
+
+        <label for="giorno">Giorno prenotazione</label>
+        <input type="date" id="giorno" name="giorno">
+
+        <label for="auto">Scegli un auto:</label>
+        <select name="auto" id="auto">
+
+            {% for a in auto %}
+            <option value="{{a[0]}}">{{a[1]}}</option>
+            {% endfor %}
+        </select>
+        <input type="submit" value="Prenota">
+    </form>
+</body>
+</html>

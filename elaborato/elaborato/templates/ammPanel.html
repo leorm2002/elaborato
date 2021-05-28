@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <title></title>
+</head>
+<body>
+    <!--  Tabella elenco ricambi (solo regionale) !-->
+    <h1>Gestione catalogo ricambi</h1>
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th scope="col">Nome</th>
+                <th scope="col">Descrizione</th>
+                <th scope="col">Elimina</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for ricambio in ricambi %}
+            <tr>
+                <td>{{ ricambio[1]}}</td>
+                <td>{{ ricambio[2]}}</td>
+                <td><button type="button" onclick="deleteRic({{ricambio[0]}})" class="btn btn-danger">Elimina</button>
+                   
+                </td>
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aggiungiOfficinaModal">
+        Aggiungi Ricambio
+    </button>
+    <!--  Tabella gestione ricambi in officina !-->
+    <h1>Gestione ricambi officina</h1>
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th scope="col">Nome ricambio</th>
+                <th scope="col">Descrizione ricambio</th>
+                <th scope="col">Quantità</th>
+                <th scope="col">Prezzo</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for ricambio in ricambiOff %}
+            <tr>
+                <td>{{ ricambio[0]}}</td>
+                <td>{{ ricambio[1]}}</td>
+                <td>{{ ricambio[2]}}</td>
+                <td>{{ ricambio[3]}}€</td>
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#aggiungiRicambioOffModal">
+        Rendi disponibile ricambio nell' officina
+    </button>
+
+    <!--  Tabella appuntamenti da oggi!-->
+    <h1>Appuntamenti</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th scope="col">Giorno intervento</th>
+                <th scope="col">Tipo Intervento</th>
+                <th scope="col">Targa auto</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            {% for intervento in interventi %}
+            <tr>
+                <td>{{ intervento[0]}}</td>
+                <td>{{ intervento[2]}}</td>
+                <td>{{ intervento[3]}}</td>
+            </tr>
+            {% endfor %}
+
+
+        </tbody>
+    </table>
+
+
+    <!-- Modal aggiunta pezzo IN OFFICINA-->
+    <div class="modal fade" id="aggiungiRicambioOffModal" tabindex="-1" role="dialog" aria-labelledby="aggiungiRicambioOffModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aggiungiRicambioOffModalLabel">Aggiungi Ricambio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- form aggiunta ricambio in officina -->
+
+                    <label for="nomeRicambioOff">Scegli ricambio:</label>
+                    <select name="ricambio" id="nomeRicambioOff">
+                        {% for ric in ricambiNonInOff %}
+                        <option value="{{ric[2]}}">{{ric[0]}}</option>
+                        {% endfor %}
+                    </select>
+
+
+                    <label for="inputquantità">Quantità</label>
+                    <input type="text" name="inputquantità" id="inputquantità" class="form-control" placeholder="Quantità" required autofocus><br />
+                    <label for="inputcosto (€)">Costo (€)</label>
+                    <input type="text" name="inputcosto (€)" id="inputcosto (€)" class="form-control" placeholder="Costo (€)" required autofocus><br />
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="reload()" data-dismiss="modal">Close</button>
+                    <button type="button" id="aggiungiRicambioBottone" onclick="aggiungiRicambioOff()" class="btn btn-primary">Aggiungi ricambio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal aggiunta pezzo globale-->
+    <div class="modal fade" id="aggiungiOfficinaModal" tabindex="-1" role="dialog" aria-labelledby="aggiungiOfficinaModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="aggiungiOfficinaModalLabel">Aggiungi Ricambio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- form aggiunta ricambio  -->
+
+                    <label for="inputnome">Nome</label>
+                    <input type="text" name="inputnome" id="inputnome" class="form-control" placeholder="Nome" required autofocus>
+                    <br />
+                    <label for="inputdescrizione">Descrizione</label>
+                    <input type="text" name="inputdescrizione" id="inputdescrizione" class="form-control" placeholder="Descrizione" required autofocus>
+                    <br />
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" onclick="reload()" data-dismiss="modal">Close</button>
+                    <button type="button" id="aggiungiRicambioBottone" onclick="aggiungiRicambio()" class="btn btn-primary">Aggiungi ricambio</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js" integrity="sha512-otOZr2EcknK9a5aa3BbMR9XOjYKtxxscwyRHN6zmdXuRfJ5uApkHB7cz1laWk2g8RKLzV9qv/fl3RPwfCuoxHQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+    <script>
+        //FUNZIONE CHE AGGIUNGE RICAMBIO INVIANDO RICHIESTA POST TRAMITE AXIOS
+        function aggiungiRicambio() {
+            nomeRic = document.getElementById("inputnome").value;
+            descRic = document.getElementById("inputdescrizione").value;
+
+            axios.post('/addRicambio', {
+                inputnome: nomeRic,
+                inputdescrizione: descRic
+            })
+                .then(function (response) {
+                    if (response.data == "ok") {
+                        document.getElementById("inputdescrizione").value = "";
+                        document.getElementById("inputnome").value = "";
+                        alert("Aggiunto");
+
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        //FUNZIONE CHE ELIMINA UN RICAMBIO
+        function deleteRic(id_ric) {
+            if (confirm('Sei sicuro di volere cancellare dal db?'))
+            {
+                axios.post('/delRicambio', {
+                    id: id_ric
+                })
+                    .then(function (response) {
+                        console.log(response)
+                        if (response.data == "ok") {
+                            alert("Eliminato");
+                            location.reload();
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            } 
+        }
+
+        //FUNZIONE CHE AGGIUNGE RICAMBIO A OFFICIN LOCALE INVIANDO RICHIESTA POST TRAMITE AXIOS
+        function aggiungiRicambioOff () {
+            quantitàRic = document.getElementById("inputquantità").value;
+            costoRic = document.getElementById("inputcosto (€)").value;
+            nomeRic = document.getElementById("nomeRicambioOff").value;
+
+            axios.post('/addRicambioOff', {
+                quantitàRic: quantitàRic,
+                costoRic: costoRic,
+                nomeRic: nomeRic
+            })
+                .then(function (response) {
+                    if (response.data == "ok") {
+                        document.getElementById("inputquantità").value = "";
+                        document.getElementById("inputcosto (€)").value = "";
+                        alert("Aggiunto");
+
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
+
+        //FA RELOAD PAGINA UN VOLTA CHE IL MODAL DI AGGIUNTA RICAMBIO VIENE CHIUSO COSì DA RICARICARE LA TABELLA
+        $('#aggiungiOfficinaModal').on('hidden.bs.modal', function () {
+            location.reload();
+        })
+
+        $('#aggiungiRicambioOffModal').on('hidden.bs.modal', function () {
+            location.reload();
+        })
+    </script>
+</body>
+</html>
+
+
+                    
