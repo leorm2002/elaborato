@@ -47,3 +47,8 @@
     content: "|";
     padding: 0 5px
 }
+
+/*@media all and (min-width:1200px)*/
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+    max-width: 80%;
+}

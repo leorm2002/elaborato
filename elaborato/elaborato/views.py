@@ -12,7 +12,7 @@ from elaborato.functions import *
  
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'leo123'
+app.config['MYSQL_PASSWORD'] = 'burbero2020'
 app.config['MYSQL_DB'] = 'elaborato'
 app.config['MYSQL_HOST'] = 'localhost'
 #Session configuration
@@ -491,14 +491,12 @@ def getDipHashedPwd(code):
     return stored_pwd
 
 #ottengo il codice officina del dipendente
-def getOffDip(code):
-    return 1 #todo
+def getOffDip(id_dip):
     cur = mysql.connection.cursor()
-    getOffDip = 'select elaborato.get_dip_officina("%s");'% code
-    cur.execute(getOffDip)
-    codiceOff = (cur.fetchall())[0][0]
-    print(codiceOff)
-    return codiceOff
+    cur.callproc('get_dip_officina',[id_dip])
+    data = cur.fetchall()[0][0]
+    cur.close()
+    return data
 #restituisce l'id dell'officina a cui appartiene il dipendente da sessio
 def getOff():
     mail = session.get("officina")
@@ -528,3 +526,6 @@ def insertPezzoIntoOfficina(id_off,id_pezzo,qt,prezzo):
     data = cur.fetchall()
     mysql.connection.commit()
     cur.close()
+
+
+
