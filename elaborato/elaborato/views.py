@@ -12,7 +12,7 @@ from elaborato.functions import *
  
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'burbero2020'
+app.config['MYSQL_PASSWORD'] = 'leo123'
 app.config['MYSQL_DB'] = 'elaborato'
 app.config['MYSQL_HOST'] = 'localhost'
 #Session configuration
@@ -29,7 +29,7 @@ def home():
     #check if user is logged
     if isLogged():
 
-        return render_template('index.html',login=True, mail=getIdCliente(),role=getRole())
+        return render_template('index.html',login=True, mail=getMail().upper(),role=getRole(), cod_dip=getMail())
         
     else:
         return render_template('index.html', login=False)
@@ -261,8 +261,10 @@ def amministrazione():
     #ottengo dati da mostrare
 
     #se l'officine è centrale mostro l'elenco crud di tutti i ricambi
-    if(True):
+    if(centrale):
         ricambi = get_elenco_ricambi()
+    else:
+        ricambi= None
     #mostro la tabella per impostare la disponibilità e il prezzo dei ricambi
     ricambiOff = getRicambiOfficina(codiceOfficine)
 
@@ -271,7 +273,9 @@ def amministrazione():
     #visualizzo gli interventi prenotati a partire da oggi
     interventi = get_elenco_interventiOff(codiceOfficine)
 
-    return render_template('ammPanel.html', interventi=interventi, ricambi = ricambi, ricambiOff=ricambiOff,ricambiNonInOff=ricambiNonInOff)
+    #elenco dipendenti dell'officina
+    dipendenti = getDipendenti(codiceOfficine)
+    return render_template('ammPanel.html', interventi=interventi, ricambi = ricambi, ricambiOff=ricambiOff,ricambiNonInOff=ricambiNonInOff, dipendenti=dipendenti)
     pass
 
 @app.route("/addRicambio", methods=['POST'])
@@ -302,6 +306,44 @@ def delRicambioOff():
         id = r['id']
         deletePezzo(id)
         return "ok"
+
+@app.route("/addDip", methods=["POST"])
+def addDip():
+    if isLogged():
+        if getRole() == "dipendente":
+            codiceOfficina = getOff()
+            r = json.loads(request.data)
+            nome = r['inputNome']
+            cognome = r['inputCognome']
+            cf= r['inputCf']
+            pwd = r['inputPwd']
+            hashed_password = generate_password_hash(pwd)
+            idNewDip = addDipDb(nome,cognome,cf,hashed_password, codiceOfficina)
+            res = {
+                "status":"ok",
+                'id':idNewDip,
+                'password':pwd
+                }
+            return json.dumps(res)
+
+
+def addDipDb(nome,cognome,cf,pwd, off ):
+    cur = mysql.connection.cursor()
+    cur.callproc('sp_add_dip',[nome,cognome,cf,pwd, off])
+    mysql.connection.commit()
+    cur.callproc('get_last_inserted_id',[])
+    data = cur.fetchall()[0][0]
+    
+    cur.close()
+    return data;
+    
+#funzione che aggiunge un autoveicolo a un cliente
+def getDipendenti(id_officina):
+    cur = mysql.connection.cursor()
+    cur.callproc('get_dipendenti_officina',[id_officina])
+    data = cur.fetchall()
+    cur.close()
+    return data
 
 #funzione che aggiunge un autoveicolo a un cliente
 def addCar(targa,anno,telaio,prop):
@@ -526,6 +568,3 @@ def insertPezzoIntoOfficina(id_off,id_pezzo,qt,prezzo):
     data = cur.fetchall()
     mysql.connection.commit()
     cur.close()
-
-
-

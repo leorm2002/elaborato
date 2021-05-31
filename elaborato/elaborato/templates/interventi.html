@@ -8,29 +8,31 @@
     <title></title>
 </head>
 <body>
-    <h1>Interventi</h1>
-    <table class="table">
-        <thead>
-            <tr>
+    <div class="container" style="max-width: 80%;">
 
-                <th scope="col">Nome</th>
-                <th scope="col">Descrizione</th>
-                <th scope="col">Prenota</th>
-            </tr>
-        </thead>
-        <tbody>
+        <h1>Interventi</h1>
+        <table class="table">
+            <thead>
+                <tr>
 
-            {% for intervento in interventi %}
-            <tr>
-                <td>{{ intervento[0]}}</td>
-                <td>{{ intervento[1]}}</td>
-                <td><a class="btn btn-primary" href="/intervento/?id={{intervento[2]}}" role="button">Prenota</a></td>
-            </tr>
-            {% endfor %}
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Prenota</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for intervento in interventi %}
+                <tr>
+                    <td>{{ intervento[0]}}</td>
+                    <td>{{ intervento[1]}}</td>
+                    <td><a class="btn btn-primary" href="/intervento/?id={{intervento[2]}}" role="button">Prenota</a></td>
+                </tr>
+                {% endfor %}
 
 
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
+</div>
 </body>
 </html>

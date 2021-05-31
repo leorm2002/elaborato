@@ -28,6 +28,9 @@
             <li class="nav-item active">
                 <a class="nav-link sep" href="/amministrazione">ZONA AMMINISTRAZIONE <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link sep" href="#">DIPENDENTE: {{cod_dip}} <span class="sr-only">(current)</span></a>
+            </li>
             {% endif %}
 
             {% if role == "cliente" %}
@@ -43,6 +46,9 @@
             <li class="nav-item active">
                 <a class="nav-link sep" href="/auto">AUTOMOBILI<span class="sr-only">(current)</span></a>
 
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link sep" href="#">MAIL: {{mail}} <span class="sr-only">(current)</span></a>
             </li>
             {% endif %}
             <li class="nav-item active">
@@ -98,15 +104,15 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-4" >
+            <div class="col-sm-4">
                 <h3 class="text-center">Competenza</h3>
                 <p class="text-center">Le nostre officine certificate si avvalgono di personale competente e con una lunga esperienza nella riparazione e nell'assistenza. </p>
             </div>
-            <div class="col-sm-4" >
+            <div class="col-sm-4">
                 <h3 class="text-center">Efficienza</h3>
                 <p class="text-center">Il personale dell'officina meccanica provvede a riparare ogni guasto della vostra auto con la massima rapidita' ed efficienza. </p>
             </div>
-            <div class="col-sm-4" >
+            <div class="col-sm-4">
                 <h3 class="text-center">Professionalita'</h3>
                 <p class="text-center">MotoX garantisce la massima professionalita' in ogni servizio offerto. </p>
             </div>
@@ -114,46 +120,26 @@
     </div>
 
 
+    <br /><br /><br /><br />
+    <br /><br /><br /><br />
 
 
-    mail: {{mail}}
-    ruolo: {{role}}
     <br />
     <!-- Footer -->
-    <footer class="bg-dark text-center text-white fixed-bottom">
+    <footer class="bg-dark text-center text-white">
         <!-- Grid container -->
         <div class="container p-4">
-
-            <!-- Section: Form -->
-            <section class="">
-                <form action="">
-                    <!--Grid row-->
-                    <div class="row d-flex justify-content-center">
-
-                        <!--Grid column-->
-                        <div class="col-auto">
-                            <!-- Submit button -->
-                            <button type="submit" class="btn btn-outline-light mb-4">
-                                Subscribe
-                            </button>
-                        </div>
-                        <!--Grid column-->
-                    </div>
-                    <!--Grid row-->
-                </form>
-            </section>
-            <!-- Section: Form -->
             <!-- Section: Links -->
             <section class="">
                 <!--Grid row-->
                 <div class="row">
                     <!--Grid column-->
                     <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                        <h5 class="text-uppercase">Links</h5>
+                        <h5 class="text-uppercase">Dipendenti</h5>
 
                         <ul class="list-unstyled mb-0">
                             <li>
-                                <a href="#!" class="text-white">Link 1</a>
+                                <a href="/login/dipendenti" class="text-white">Login dipendenti</a>
                             </li>
                         </ul>
                     </div>

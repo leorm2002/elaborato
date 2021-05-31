@@ -8,33 +8,35 @@
     <title></title>
 </head>
 <body>
-    <h1>Accessori</h1>
-    <table class="table">
-        <thead>
-            <tr>
+    <div class="container" style="max-width: 80%;">
 
-                <th scope="col">Nome</th>
-                <th scope="col">Descrizione</th>
-                <th scope="col">Quantità</th>
-                <th scope="col">Costo</th>
-                <th scope="col">Nome officina</th>
-            </tr>
-        </thead>
-        <tbody>
+        <h1>Accessori</h1>
+        <table class="table">
+            <thead>
+                <tr>
 
-            {% for ricambio in ricambi %}
-            <tr>
-                <td>{{ ricambio[0]}}</td>
-                <td>{{ ricambio[1]}}</td>
-                <td>{{ ricambio[2]}}</td>
-                <td>{{ ricambio[3]}}€</td>
-                <td>{{ ricambio[4]}}</td>
-            </tr>
-            {% endfor %}
+                    <th scope="col">Nome</th>
+                    <th scope="col">Descrizione</th>
+                    <th scope="col">Quantità</th>
+                    <th scope="col">Costo</th>
+                    <th scope="col">Nome officina</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for ricambio in ricambi %}
+                <tr>
+                    <td>{{ ricambio[0]}}</td>
+                    <td>{{ ricambio[1]}}</td>
+                    <td>{{ ricambio[2]}}</td>
+                    <td>{{ ricambio[3]}}€</td>
+                    <td>{{ ricambio[4]}}</td>
+                </tr>
+                {% endfor %}
 
 
-        </tbody>
-    </table>
-
+            </tbody>
+        </table>
+        </div>
 </body>
 </html>

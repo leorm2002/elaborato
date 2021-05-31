@@ -8,30 +8,33 @@
     <title></title>
 </head>
 <body>
-    <h1>Appuntamenti</h1>
-    <table class="table">
-        <thead>
-            <tr>
+    <div class="container" style="max-width: 80%;">
 
-                <th scope="col">Giorno intervento</th>
-                <th scope="col">Nome Intervento</th>
-                <th scope="col">Officina</th>
-                <th scope="col">Targa auto</th>
-            </tr>
-        </thead>
-        <tbody>
+        <h1>Appuntamenti</h1>
+        <table class="table">
+            <thead>
+                <tr>
 
-            {% for appuntamento in appuntamenti %}
-            <tr>
-                <td>{{ appuntamento[0]}}</td>
-                <td>{{ appuntamento[2]}}</td>
-                <td>{{ appuntamento[3]}}</td>
-                <td>{{ appuntamento[4]}}</td>
-            </tr>
-            {% endfor %}
+                    <th scope="col">Giorno intervento</th>
+                    <th scope="col">Nome Intervento</th>
+                    <th scope="col">Officina</th>
+                    <th scope="col">Targa auto</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for appuntamento in appuntamenti %}
+                <tr>
+                    <td>{{ appuntamento[0]}}</td>
+                    <td>{{ appuntamento[2]}}</td>
+                    <td>{{ appuntamento[3]}}</td>
+                    <td>{{ appuntamento[4]}}</td>
+                </tr>
+                {% endfor %}
 
 
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+        </div>
 </body>
 </html>

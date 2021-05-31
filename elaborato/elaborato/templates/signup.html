@@ -9,34 +9,37 @@
 </head>
 
 <body>
+    <div class="container" style="max-width: 80%;">
 
-    <div class="container">
-        <div class="header">
+        <div class="container">
+            <div class="header">
+            </div>
+
+            <div>
+                <h1>Registrazione</h1>
+                <form class="form-signin" action="/signup" method="post">
+                    <label for="inputName" class="sr-only">Nome</label>
+                    <input type="text" name="inputName" id="inputName" class="form-control" placeholder="Nome" required autofocus /><br />
+                    <label for="inputSurname" class="sr-only">Cognome</label>
+                    <input type="text" name="inputSurname" id="inputSurname" class="form-control" placeholder="Cognome" required autofocus /><br />
+                    <label for="inputTel" class="sr-only">N. Telefono</label>
+                    <input type="text" name="inputTel" id="inputTel" class="form-control" placeholder="N. Telefono" required autofocus /><br />
+                    <label for="inputEmail" class="sr-only">Indirizzo Email </label>
+                    <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Indirizzo Email" required autofocus><br />
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required><br />
+                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Registrati">
+                    <span>{{msg}}</span>
+                </form>
+            </div>
+
+
+
+            <footer class="footer">
+            </footer>
+
         </div>
-
-        <div>
-            <h1>Registrazione</h1>
-            <form class="form-signin" action="/signup" method="post">
-                <label for="inputName" class="sr-only">Nome</label>
-                <input type="text" name="inputName" id="inputName" class="form-control" placeholder="Nome" required autofocus /><br />
-                <label for="inputSurname" class="sr-only">Cognome</label>
-                <input type="text" name="inputSurname" id="inputSurname" class="form-control" placeholder="Cognome" required autofocus /><br />
-                <label for="inputTel" class="sr-only">N. Telefono</label>
-                <input type="text" name="inputTel" id="inputTel" class="form-control" placeholder="N. Telefono" required autofocus /><br />
-                <label for="inputEmail" class="sr-only">Indirizzo Email </label>
-                <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Indirizzo Email" required autofocus><br />
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required><br />
-                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Registrati">
-                <span>{{msg}}</span>
-            </form>
-        </div>
-
-    
-
-        <footer class="footer">
-        </footer>
-
     </div>
+
 </body>
 </html>
